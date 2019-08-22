@@ -202,7 +202,7 @@ class StatusViews extends StatelessWidget {
                 children: <Widget>[
                   new Image.asset(
                     Util.getImgPath("ic_network_error"),
-                    package: BaseConstant.packageBase,
+                    package: BaseConstant.package_base,
                     width: 100,
                     height: 100,
                   ),
@@ -239,7 +239,7 @@ class StatusViews extends StatelessWidget {
               children: <Widget>[
                 new Image.asset(
                   Util.getImgPath("ic_data_empty"),
-                  package: BaseConstant.packageBase,
+                  package: BaseConstant.package_base,
                   width: 60,
                   height: 60,
                 ),

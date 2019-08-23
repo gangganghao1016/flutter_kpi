@@ -56,7 +56,7 @@ class RoundCircleButton extends StatelessWidget {
                 child: new Text(
                   text,
                   style:
-                  style ?? new TextStyle(color: Colors.white, fontSize: 18),
+                      style ?? new TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
         ),
@@ -66,12 +66,11 @@ class RoundCircleButton extends StatelessWidget {
 }
 
 class RoundButton extends StatelessWidget {
-
   const RoundButton({
     Key key,
     this.text: "",
     @required this.onPressed,
-  }): super(key: key);
+  }) : super(key: key);
 
   final String text;
   final VoidCallback onPressed;
@@ -93,9 +92,7 @@ class RoundButton extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               text,
-              style: TextStyle(
-                  fontSize: Dimens.font_sp18
-              ),
+              style: TextStyle(fontSize: Dimens.font_sp18),
             ),
           ),
         ],
@@ -104,7 +101,127 @@ class RoundButton extends StatelessWidget {
   }
 }
 
+class LoginItemView extends StatelessWidget {
+  const LoginItemView(
+      {this.controller,
+      this.prefixIcon,
+      this.hintText,
+      Key key,
+      this.obscureText = false})
+      : super(key: key);
+  final IconData prefixIcon;
+  final String hintText;
+  final TextEditingController controller;
 
+  final bool obscureText;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+      children: <Widget>[
+        new IconButton(
+            iconSize: 28,
+            icon: new Icon(
+              prefixIcon,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed: () {}),
+        Gaps.hGap30,
+        new Expanded(
+          child:
+          new TextField(
+              obscureText: obscureText,
+              controller: controller,
+              style: new TextStyle(color: Colours.gray_33, fontSize: 16),
+              decoration: new InputDecoration(
+                hintText: hintText,
+                hintStyle: new TextStyle(color: Colours.gray_99, fontSize: 16),
+//                suffixIcon: hasSuffixIcon
+//                    ? new IconButton(
+//                    icon: new Icon(
+//                      _obscureText ? Icons.visibility : Icons.visibility_off,
+//                      color: Colours.gray_66,
+//                    ),
+//                    onPressed: () {
+//                      setState(() {
+//                        _obscureText = !_obscureText;
+//                      });
+//                    })
+//                    : null,
+                focusedBorder: new UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colours.app_main)),
+                enabledBorder: new UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colours.green_de)),
+              ))
+//          new MyTextField(
+//            obscureText: obscureText,
+//            controller: controller,
+//            hintText: hintText,
+//            hasSuffixIcon: hasSuffixIcon,
+//          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MyTextField extends StatefulWidget {
+  const MyTextField(
+      {Key key,
+      this.obscureText,
+      this.controller,
+      this.hintText,
+      this.hasSuffixIcon})
+      : super(key: key);
+  final bool obscureText;
+  final bool hasSuffixIcon;
+  final String hintText;
+  final TextEditingController controller;
+
+  @override
+  State<StatefulWidget> createState() {
+    return MyTextFieldState();
+  }
+}
+
+class MyTextFieldState extends State<MyTextField> {
+  bool _obscureText;
+  TextEditingController controller;
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.obscureText;
+    controller=widget.controller;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new TextField(
+        obscureText: _obscureText,
+        controller: controller,
+        style: new TextStyle(color: Colours.gray_33, fontSize: 16),
+        decoration: new InputDecoration(
+          hintText: widget.hintText,
+          hintStyle: new TextStyle(color: Colours.gray_99, fontSize: 16),
+          suffixIcon: widget.hasSuffixIcon
+              ? new IconButton(
+                  icon: new Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: Colours.gray_66,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  })
+              : null,
+          focusedBorder: new UnderlineInputBorder(
+              borderSide: new BorderSide(color: Colours.app_main)),
+          enabledBorder: new UnderlineInputBorder(
+              borderSide: new BorderSide(color: Colours.green_de)),
+        ));
+  }
+}
 
 class LoginItem extends StatefulWidget {
   const LoginItem({
@@ -128,7 +245,6 @@ class LoginItem extends StatefulWidget {
 
 class LoginItemState extends State<LoginItem> {
   bool _obscureText;
-
   @override
   void initState() {
     super.initState();
@@ -157,29 +273,29 @@ class LoginItemState extends State<LoginItem> {
                 hintStyle: new TextStyle(color: Colours.gray_99, fontSize: 16),
                 suffixIcon: widget.hasSuffixIcon
                     ? new IconButton(
-                    icon: new Icon(
-                      _obscureText
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: Colours.gray_66,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    })
+                        icon: new Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colours.gray_66,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        })
                     : null,
                 focusedBorder: new UnderlineInputBorder(
                     borderSide: new BorderSide(color: Colours.app_main)),
                 enabledBorder: new UnderlineInputBorder(
                     borderSide: new BorderSide(color: Colours.green_de)),
-              )
-          ),
+              )),
         ),
       ],
     );
   }
 }
+
 class StatusViews extends StatelessWidget {
   const StatusViews(this.status, {Key key, this.onTap}) : super(key: key);
   final int status;
@@ -259,6 +375,7 @@ class StatusViews extends StatelessWidget {
     }
   }
 }
+
 class ProgressView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -273,4 +390,3 @@ class ProgressView extends StatelessWidget {
     );
   }
 }
-

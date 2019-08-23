@@ -156,7 +156,7 @@ class DioUtils {
 
   /// 统一处理(onSuccess返回T对象，onSuccessList返回List<T>)
   requestNetwork<T>(Method method, String url, {Function(T t) onSuccess, Function(List<T> list) onSuccessList, Function(int code, String mag) onError,
-    Map<String, dynamic> params, Map<String, dynamic> queryParameters, CancelToken cancelToken, Options options, bool isList : false}){
+    Map<String, dynamic> params, Map<String, dynamic> queryParameters, CancelToken cancelToken, Options options, bool isList : false})async{
     String m = _getRequestMethod(method);
     Observable.fromFuture(isList ? _requestList<T>(m, url, data: params, queryParameters: queryParameters, options: options, cancelToken: cancelToken) :
     _request<T>(m, url, data: params, queryParameters: queryParameters, options: options, cancelToken: cancelToken))

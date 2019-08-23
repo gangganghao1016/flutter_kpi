@@ -26,6 +26,7 @@ dependencies:
 
   # 网络库 https://github.com/flutterchina/dio
   dio: ^2.1.13
+#  dio: ^1.0.13
   # https://github.com/ReactiveX/rxdart
   rxdart: ^0.22.0
   # Toast插件 https://github.com/OpenFlutter/flutter_oktoast

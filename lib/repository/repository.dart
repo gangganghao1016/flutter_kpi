@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_kpi/data/user_entity.dart';
 import 'package:flutter_kpi/net/net.dart';
 import 'package:flutter_kpi/utils/log_util.dart';
+import 'package:flutter_kpi/utils/toast.dart';
 import 'package:meta/meta.dart';
-
 
 class Repository {
   /// 返回Future 适用于刷新，加载更多
@@ -25,10 +25,10 @@ class Repository {
         }
     );
   }
-  void requestNetwork<T>(Method method, {@required String url, bool isShow : true, bool isClose: true, Function(T t) onSuccess, Function(List<T> list) onSuccessList, Function(int code, String mag) onError,
-    Map<String, dynamic> params, Map<String, dynamic> queryParameters, CancelToken cancelToken, Options options, bool isList : false}){
+  Future requestNetwork<T>(Method method, {@required String url, bool isShow : true, bool isClose: true, Function(T t) onSuccess, Function(List<T> list) onSuccessList, Function(int code, String mag) onError,
+    Map<String, dynamic> params, Map<String, dynamic> queryParameters, CancelToken cancelToken, Options options, bool isList : false}) async{
 //    if (isShow) view.showProgress();
-    DioUtils.instance.requestNetwork<T>(method, url,
+   await DioUtils.instance.requestNetwork<T>(method, url,
         params: params,
         queryParameters: queryParameters,
         options: options,
@@ -47,6 +47,10 @@ class Repository {
           }
         },
         onError: (code, msg){
+          Toast.show(msg);
+      if(onError!=null){
+        onError(code,msg);
+      }
 //          _onError(code, msg, onError);
         }
     );
@@ -61,19 +65,20 @@ class Repository {
       /// 接口请求例子
       /// get请求参数queryParameters  post请求参数params
     UserEntity userEntity;
-      requestNetwork<UserEntity>(Method.post,
+     await requestNetwork<UserEntity>(Method.post,
         params: params,
         url: Api.login,
         onSuccess: (user){
-          LogFsUtil.json("72userProvider:" + user.toString());
+          LogFsUtil.d("respository_onSuccess:" + user.toString());
        userEntity=user;
-//          view.setUser(data);
-//          view.intentToHomePage();
         },
         onError:(code, msg) {
-        Future.error(msg);
+        LogFsUtil.d("respository_onError:"+msg);
+      return new Future.error(msg);
         }
       );
+      LogFsUtil.d("respository  return");
+
     return userEntity;
 //    });
 

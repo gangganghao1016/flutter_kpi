@@ -9,6 +9,7 @@ class RouterUnify extends IRouterProvider{
   @override
   void initRouter(Router router) {
 //   router.define(home, handler: Handler(handlerFunc: (_, params) => HomePage()));
+//   router.define(login, handler: Handler(handlerFunc: (_, params) => UserLoginPageTest()));
    router.define(login, handler: Handler(handlerFunc: (_, params) => BlocProvider(child: UserLoginPage(), bloc: LoginBloc())));
   }
 

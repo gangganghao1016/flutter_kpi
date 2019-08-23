@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kpi/common/common.dart';
+import 'package:flutter_kpi/res/index.dart';
 import 'package:flutter_kpi/routers/fluro_navigator.dart';
 import 'package:flutter_kpi/routers/unify_router.dart';
+import 'package:flutter_kpi/ui/widget/widgets.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'user_login_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -23,7 +27,7 @@ class SplashState extends State<SplashPage> {
     if (accessToken.isNotEmpty) {
       _goHome();
     } else {
-      _goLogin();
+//      _goLogin();
     }
   }
 @override
@@ -44,7 +48,12 @@ class SplashState extends State<SplashPage> {
   }
 
   _goLogin() {
-    NavigatorUtils.push(context,RouterUnify.login, replace: true);
+//    NavigatorUtils.push(context,RouterUnify.login, replace: false);
+    Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
+      return UserLoginPageTest();
+    }))
+    ;
+
   }
 
   _goHome() {
@@ -53,8 +62,48 @@ class SplashState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  new Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: new Column());
+    TextEditingController _controllerName=new TextEditingController();
+    TextEditingController _controllerPwd=new TextEditingController();
+    return new Scaffold(
+//        resizeToAvoidBottomInset: false,
+        body: new Column(
+          children: <Widget>[
+            new Container(
+              margin: EdgeInsets.only(
+                  left: Dimens.gap_dp20, top: 100, right: Dimens.gap_dp20),
+              child: new Column(
+                children: <Widget>[
+                  LoginItem(
+                    controller: _controllerName,
+                    prefixIcon: Icons.person,
+                    hintText: "textname",
+                  ),
+//                  Gaps.vGap15,
+//                  TextField(controller: _controllerPwd,),
+                  LoginItem(
+                    controller: _controllerPwd,
+                    prefixIcon: Icons.lock,
+                    hintText: "pwd",
+//                    obscureText: true,
+                  ),
+//                  new RoundCircleButton(
+//                    text: StringIds.user_login,
+//                    margin: EdgeInsets.only(
+//                        left: Dimens.gap_dp30,
+//                        top: Dimens.gap_dp40,
+//                        right: Dimens.gap_dp30),
+//                    onPressed: () {
+//                      _userLogin();
+//                    },
+//                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+//    return  new Scaffold(
+//        resizeToAvoidBottomInset: false,
+//        body: new Column()
+//    );
   }
 }

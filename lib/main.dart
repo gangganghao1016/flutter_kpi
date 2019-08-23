@@ -2,11 +2,12 @@ import 'package:fluro/fluro.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kpi/blocs/application_bloc.dart';
+import 'package:flutter_kpi/blocs/bloc_index.dart';
 import 'package:flutter_kpi/blocs/bloc_provider.dart';
 import 'package:flutter_kpi/res/colors.dart';
 import 'package:flutter_kpi/routers/application.dart';
 import 'package:flutter_kpi/routers/routers.dart';
-import 'package:flutter_kpi/ui/page/splash_page.dart';
+import 'package:flutter_kpi/ui/page/user_login_page.dart';
 import 'package:oktoast/oktoast.dart';
 
 //void main() => runApp(MyApp());
@@ -46,7 +47,8 @@ class MyAppState extends State<MyApp> {
             primaryColor: Colours.app_main,
             scaffoldBackgroundColor: Colors.white,
           ),
-          home: SplashPage(),
+//          home: SplashPage(),
+          home: BlocProvider(child: UserLoginPage(), bloc: LoginBloc()),
           onGenerateRoute: Application.router.generator,
         ),
         backgroundColor: Colors.black54,

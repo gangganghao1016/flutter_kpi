@@ -1,7 +1,5 @@
-import 'package:flustars/flustars.dart';
-import 'package:flutter_kpi/common/common.dart';
 import 'package:flutter_kpi/data/user_entity.dart';
-import 'package:flutter_kpi/net/net.dart';
+import 'package:flutter_kpi/repository/user_repository.dart';
 import 'package:flutter_kpi/utils/log_util.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -20,53 +18,76 @@ class LoginBloc extends BaseBloc {
     _repos.close();
   }
 
-  reqlogin(String userName, String password) {
-    Map<String, String> params = Map();
-    params["username"] = userName;
-    //没有md5
-//    params["password"] = Util.generateMd5(password);
-    params["password"] = password;
-//    WidgetsBinding.instance.addPostFrameCallback((_){
-    /// 接口请求例子
-    /// get请求参数queryParameters  post请求参数params
-    repository.requestNetwork<UserEntity>(Method.post,
-        params: params, url: Api.login, onSuccess: (user) {
-      LogFsUtil.d("respository_onSuccess:" + user.toString());
-      //把整个user对象放在sp文件中
-      if (user != null){
-        SpUtil.putObject(BaseConstant.user_obj, user);
-      }
-      if (user != null && user.accessToken.isNotEmpty) {
-        SpUtil.putString(BaseConstant.access_Token, user.accessToken);
-        LogFsUtil.d("存储token到sp");
-      }
-      //
+  UserRepository _repository=new UserRepository();
+  Future reqLogin(String username,String pwd) {
+    return _repository.login(username,pwd).then((userEntity) {
+      LogFsUtil.d("login_____27"+userEntity.toString());
+      if (userEntity != null) {
 
-    }, onError: (code, msg) {
-      LogFsUtil.d("respository_onError:" + msg);
-//    return new Future.error(msg);
+      }
+//      _collectListSink.add(UnmodifiableListView<ReposModel>(_collectList));
+//      _homeEventSink?.add(new StatusEvent(
+//          labelId,
+//          ObjectUtil.isEmpty(list)
+//              ? RefreshStatus.noMore
+//              : RefreshStatus.idle));
+    }).catchError((_) {
+      LogFsUtil.d("login_____38");
+//      if (ObjectUtil.isEmpty(_collectList)) {
+//        _collectListBs.sink.addError("error");
+//      }
+//      _collectPage--;
+//      _homeEventSink?.add(new StatusEvent(labelId, RefreshStatus.failed));
     });
-    LogFsUtil.d("respository  return");
   }
 
-  Future<bool> reqLogin(String userName, String password) async {
-    bool isSuccess = false;
-    repository.reqLogin(userName, password).then((user) {
-//    LogFsUtil.d("login_bloc_then....");
-//    postPageEmpty2PageContent(false, user);
-      LogFsUtil.d("userProvider:" + user.toString());
-      //把整个user对象放在sp文件中
-      if (user != null) SpUtil.putObject(BaseConstant.user_obj, user);
-      if (user != null && user.accessToken.isNotEmpty) {
-        SpUtil.putString(BaseConstant.access_Token, user.accessToken);
-        LogFsUtil.d("存储token到sp");
-      }
-      isSuccess = true;
-    }).catchError((error) {
-      return new Future.error(error);
-//    postPageError(false, error.toString());
-//      Toast.show(error);
-    });
-    return isSuccess;
-  }
+//  reqlogin(String userName, String password) {
+//    Map<String, String> params = Map();
+//    params["username"] = userName;
+//    //没有md5
+////    params["password"] = Util.generateMd5(password);
+//    params["password"] = password;
+////    WidgetsBinding.instance.addPostFrameCallback((_){
+//    /// 接口请求例子
+//    /// get请求参数queryParameters  post请求参数params
+//    repository.requestNetwork<UserEntity>(Method.post,
+//        params: params, url: Api.login, onSuccess: (user) {
+//      LogFsUtil.d("respository_onSuccess:" + user.toString());
+//      //把整个user对象放在sp文件中
+//      if (user != null){
+//        SpUtil.putObject(BaseConstant.user_obj, user);
+//      }
+//      if (user != null && user.accessToken.isNotEmpty) {
+//        SpUtil.putString(BaseConstant.access_Token, user.accessToken);
+//        LogFsUtil.d("存储token到sp");
+//      }
+//      //
+//
+//    }, onError: (code, msg) {
+//      LogFsUtil.d("respository_onError:" + msg);
+////    return new Future.error(msg);
+//    });
+//    LogFsUtil.d("respository  return");
+//  }
+//
+//  Future<bool> reqLogin(String userName, String password) async {
+//    bool isSuccess = false;
+//    repository.reqLogin(userName, password).then((user) {
+////    LogFsUtil.d("login_bloc_then....");
+////    postPageEmpty2PageContent(false, user);
+//      LogFsUtil.d("userProvider:" + user.toString());
+//      //把整个user对象放在sp文件中
+//      if (user != null) SpUtil.putObject(BaseConstant.user_obj, user);
+//      if (user != null && user.accessToken.isNotEmpty) {
+//        SpUtil.putString(BaseConstant.access_Token, user.accessToken);
+//        LogFsUtil.d("存储token到sp");
+//      }
+//      isSuccess = true;
+//    }).catchError((error) {
+//      return new Future.error(error);
+////    postPageError(false, error.toString());
+////      Toast.show(error);
+//    });
+//    return isSuccess;
+//  }
 }

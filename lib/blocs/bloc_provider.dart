@@ -1,7 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kpi/event/page_event.dart';
-import 'package:flutter_kpi/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 
@@ -11,7 +10,7 @@ class BaseBloc {
   }
 
   ///请求专用的类
-  Repository repository = new Repository();
+//  Repository repository = new Repository();
 
   ///主要是事件通知
   BehaviorSubject<PageStatusEvent> _pageEvent =

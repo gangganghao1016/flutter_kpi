@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kpi/blocs/application_bloc.dart';
 import 'package:flutter_kpi/blocs/bloc_index.dart';
 import 'package:flutter_kpi/blocs/bloc_provider.dart';
+import 'package:flutter_kpi/common/component_index.dart';
+import 'package:flutter_kpi/net/net.dart';
 import 'package:flutter_kpi/res/colors.dart';
 import 'package:flutter_kpi/routers/application.dart';
 import 'package:flutter_kpi/routers/routers.dart';
@@ -35,6 +38,22 @@ class MyAppState extends State<MyApp> {
 
   void _initAsync() async {
     await SpUtil.getInstance();
+    if (!mounted) return;
+    _init();
+  }
+
+  void _init() {
+//    DioUtil.openDebug();
+    Options options = DioUtil.getDefOptions();
+    options.baseUrl = Api.baseUrl;
+    String cookie = SpUtil.getString(BaseConstant.access_Token);
+    if (ObjectUtil.isNotEmpty(cookie)) {
+      Map<String, dynamic> _headers = new Map();
+      _headers["accessToken"] = cookie;
+      options.headers = _headers;
+    }
+    HttpConfig config = new HttpConfig(options: options);
+    DioUtil().setConfig(config);
   }
 
   @override

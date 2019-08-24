@@ -3,7 +3,8 @@ class Api{
   static const int resultCodeSuccess=200;
   static const int resultCodeTokenInvalid=-105;//token失效
   static const String baseUrl = 'http://performance.wxy-zc-forever.com/';
-  static const String baseUrl_test = 'http://performance.danyangjin.com/api/';
+//  static const String baseUrl = baseUrl_test;
+  static const String baseUrl_test = 'http://performance.danyangjin.com/';
   //取个人绩效各项分数
   static const String homeData = 'api/performance/homeData';
   //登录

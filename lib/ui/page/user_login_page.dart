@@ -92,7 +92,7 @@ class _LoginPageState extends BaseState<UserLoginPage, LoginBloc> {
         Toast.show(username.isEmpty ? "请输入密码～" : "密码至少6位～");
         return;
       }
-      bloc.reqlogin(username, password);
+      bloc.reqLogin(username, password);
 //      bloc.reqLogin(username, password).then((yes) {
 //        if (yes) {
 //          NavigatorUtils.push(context, RouterUnify.home);

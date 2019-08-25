@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_kpi/blocs/bloc_provider.dart';
 import 'package:flutter_kpi/common/component_index.dart';
 import 'package:flutter_kpi/event/page_event.dart';
+
 // 基类StatefulWidget页面
 abstract class BaseWidget extends StatefulWidget {
   @override
   BaseState createState() => getState();
+
   ///子类实现
   BaseState getState();
 }
@@ -50,8 +52,10 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
           bool isShowContent = false;
           if (snapshot == null || snapshot.data == null) {
             isShowContent = false;
-            status =
-                PageStatusEvent(errorDesc : "", isRefresh: true, pageStatus: PageEnum.showLoading);
+            status = PageStatusEvent(
+                errorDesc: "",
+                isRefresh: true,
+                pageStatus: PageEnum.showLoading);
           } else {
             status = snapshot.data;
             if ((!status.isRefresh) ||
@@ -133,8 +137,8 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
     if (current != PageEnum.showContent) {
       current = PageEnum.showContent;
       //展示内容
-      bloc.pageEventSink
-          .add(PageStatusEvent(errorDesc : "", isRefresh: true, pageStatus: PageEnum.showContent));
+      bloc.pageEventSink.add(PageStatusEvent(
+          errorDesc: "", isRefresh: true, pageStatus: PageEnum.showContent));
     }
   }
 
@@ -142,8 +146,8 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
     if (current != PageEnum.showEmpty) {
       current = PageEnum.showEmpty;
       //展示空页面
-      bloc.pageEventSink
-          .add(PageStatusEvent(errorDesc : "", isRefresh: true, pageStatus: PageEnum.showEmpty));
+      bloc.pageEventSink.add(PageStatusEvent(
+          errorDesc: "", isRefresh: true, pageStatus: PageEnum.showEmpty));
     }
   }
 
@@ -151,8 +155,8 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
     if (current != PageEnum.showError) {
       current = PageEnum.showError;
       //展示错误页面
-      bloc.pageEventSink
-          .add(PageStatusEvent(errorDesc : "", isRefresh: true, pageStatus: PageEnum.showError));
+      bloc.pageEventSink.add(PageStatusEvent(
+          errorDesc: "", isRefresh: true, pageStatus: PageEnum.showError));
     }
   }
 
@@ -160,8 +164,8 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
     if (current != PageEnum.showLoading) {
       current = PageEnum.showLoading;
       //展示loading页面
-      bloc.pageEventSink
-          .add(PageStatusEvent(errorDesc : "", isRefresh: true, pageStatus: PageEnum.showLoading));
+      bloc.pageEventSink.add(PageStatusEvent(
+          errorDesc: "", isRefresh: true, pageStatus: PageEnum.showLoading));
     }
   }
 

@@ -75,12 +75,11 @@ class UserLoginPage extends BaseWidget {
 }
 
 class _LoginPageState extends BaseState<UserLoginPage, LoginBloc> {
+  TextEditingController _controllerName = new TextEditingController();
+  TextEditingController _controllerPwd = new TextEditingController();
   @override
   Widget buildWidget(BuildContext context) {
     showLoadSuccess();
-    TextEditingController _controllerName = new TextEditingController();
-    TextEditingController _controllerPwd = new TextEditingController();
-
     void _userLogin() {
       String username = _controllerName.text;
       String password = _controllerPwd.text;

@@ -4,6 +4,8 @@ import 'package:flutter_kpi/data/user_entity.dart';
 import 'package:flutter_kpi/net/api.dart';
 import 'package:flutter_kpi/net/net.dart';
 import 'package:flutter_kpi/utils/log_util.dart';
+import 'package:flutter_kpi/utils/toast.dart';
+
 class LoginReq {
   String username;
   String password;
@@ -15,9 +17,9 @@ class LoginReq {
         password = json['password'];
 
   Map<String, dynamic> toJson() => {
-    'username': username,
-    'password': password,
-  };
+        'username': username,
+        'password': password,
+      };
 
   @override
   String toString() {
@@ -31,6 +33,7 @@ class LoginReq {
         '}';
   }
 }
+
 class UserRepository {
   Options _checkOptions(method, options) {
     if (options == null) {
@@ -39,6 +42,7 @@ class UserRepository {
     options.method = method;
     return options;
   }
+
 //  reqLogin(String username,String password){
 //    LoginReq req=new LoginReq(username,password);
 //    new Dio(new Options(baseUrl: "http://performance.wxy-zc-forever.com/"))
@@ -48,19 +52,20 @@ class UserRepository {
 ////        options: _checkOptions(method, options),
 ////        cancelToken: cancelToken);
 //  }
-  Future<UserEntity> login(String username,String password) async {
+  Future<UserEntity> login(String username, String password) async {
     Map<String, String> params = Map();
     params["username"] = username;
 //    //没有md5
 ////    params["password"] = Util.generateMd5(password);
-    params["password"]=password;
-    LoginReq req=new LoginReq(username,password);
+    params["password"] = password;
+    LoginReq req = new LoginReq(username, password);
     BaseRespR<Map<String, dynamic>> baseResp = await DioUtil()
         .requestR<Map<String, dynamic>>(Method.post, Api.login,
-        data: req.toJson());
-    LogFsUtil.d("repository:"+baseResp.toString());
+            data: req.toJson());
+    LogFsUtil.d("repository:" + baseResp.toString());
     if (baseResp.code != Api.resultCodeSuccess) {
-      LogFsUtil.d("repository:"+baseResp.msg);
+      LogFsUtil.d("repository:" + baseResp.msg);
+      Toast.show(baseResp.msg);
       return Future.error(baseResp.msg);
     }
     //todo
@@ -69,13 +74,13 @@ class UserRepository {
         String cookie = values.toString();
         LogFsUtil.e("set-cookie: " + cookie);
 //        SpUtil.putString(BaseConstant.keyAppToken, cookie);
-
         DioUtil().setCookie(cookie);
         //CacheUtil().setLogin(true);
       }
     });
     LogFsUtil.d("repository:model");
     UserEntity model = UserEntity.fromJson(baseResp.data);
+    Toast.show("登录成功");
     //CacheUtil().setUserModel(model);
 //    SpUtil.putObject(BaseConstant.keyUserModel, model);
     //todo

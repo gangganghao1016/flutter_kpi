@@ -10,6 +10,7 @@ import 'package:flutter_kpi/net/net.dart';
 import 'package:flutter_kpi/res/colors.dart';
 import 'package:flutter_kpi/routers/application.dart';
 import 'package:flutter_kpi/routers/routers.dart';
+import 'package:flutter_kpi/ui/page/splash_page.dart';
 import 'package:flutter_kpi/ui/page/user_login_page.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -66,8 +67,8 @@ class MyAppState extends State<MyApp> {
             primaryColor: Colours.app_main,
             scaffoldBackgroundColor: Colors.white,
           ),
-//          home: SplashPage(),
-          home: BlocProvider(child: UserLoginPage(), bloc: LoginBloc()),
+          home: SplashPage(),
+//          home: BlocProvider(child: UserLoginPage(), bloc: LoginBloc()),
           onGenerateRoute: Application.router.generator,
         ),
         backgroundColor: Colors.black54,

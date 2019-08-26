@@ -2,8 +2,10 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_kpi/blocs/bloc_index.dart';
 import 'package:flutter_kpi/routers/router_init.dart';
 import 'package:flutter_kpi/ui/page/user_login_page.dart';
+import 'package:flutter_kpi/ui/page/tabBar.dart';
 
 class RouterUnify extends IRouterProvider{
+static String tabbar = "/tabbar";
  static String home="/home";
  static String login="/login";
   @override
@@ -11,6 +13,7 @@ class RouterUnify extends IRouterProvider{
 //   router.define(home, handler: Handler(handlerFunc: (_, params) => HomePage()));
 //   router.define(login, handler: Handler(handlerFunc: (_, params) => UserLoginPageTest()));
    router.define(login, handler: Handler(handlerFunc: (_, params) => BlocProvider(child: UserLoginPage(), bloc: LoginBloc())));
+   router.define(tabbar,handler: Handler(handlerFunc: (_, params) => BlocProvider(child: TabBarPage(), bloc: LoginBloc())));
   }
 
 }

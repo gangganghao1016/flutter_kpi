@@ -22,10 +22,11 @@ class SplashState extends State<SplashPage> {
     await SpUtil.getInstance();
     String accessToken = SpUtil.getString(BaseConstant.access_Token);
     if (accessToken.isNotEmpty) {
-//      _goHome();
-      _goLogin();
+     _goHome();
+      // _goLogin();
     } else {
-      _goLogin();
+      // _goLogin();
+      _goHome();
     }
   }
 
@@ -67,7 +68,7 @@ class SplashState extends State<SplashPage> {
   }
 
   _goHome() {
-    NavigatorUtils.push(context, RouterUnify.home, replace: true);
+    NavigatorUtils.push(context, RouterUnify.tabbar, replace: true);
   }
 
   @override

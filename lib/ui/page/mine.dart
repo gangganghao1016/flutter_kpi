@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 
 class MineWidget extends StatefulWidget {
   @override
@@ -18,15 +19,27 @@ class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     
-    _func() {
-      print("点击了");
+    _personalDatafunc() {
+      showToast("个人资料",position: ToastPosition.bottom);
+    }
+    _personalKpiDetailfunc() {
+      showToast("我的绩效详情",position: ToastPosition.bottom);
+    }
+    _dimensionListfunc() {
+      showToast("维度列表",position: ToastPosition.bottom);
+    }
+    _changePasswordfunc() {
+      showToast("修改密码",position: ToastPosition.bottom);
+    }
+    _logOutfunc() {
+      showToast("退出登录",position: ToastPosition.bottom);
     }
 
-    List listConfig = [{"title":"个人资料","func":_func},
-                       {"title":"我的绩效详情","func":_func},
-                       {"title":"维度列表","func":_func},
-                       {"title":"修改密码","func":_func},
-                       {"title":"退出登录","func":_func}];
+    List listConfig = [{"title":"个人资料","func":_personalDatafunc},
+                       {"title":"我的绩效详情","func":_personalKpiDetailfunc},
+                       {"title":"维度列表","func":_dimensionListfunc},
+                       {"title":"修改密码","func":_changePasswordfunc},
+                       {"title":"退出登录","func":_logOutfunc}];
     return Scaffold(
       appBar: AppBar(title: Text("我的"),),
       body: Column(

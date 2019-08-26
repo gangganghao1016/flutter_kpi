@@ -1,6 +1,5 @@
 export 'dart:convert';
 
-export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flukit/flukit.dart';
 export 'package:flutter_kpi/common/common.dart';
 export 'package:flutter_kpi/res/index.dart';

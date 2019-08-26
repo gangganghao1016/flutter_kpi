@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_kpi/utils/util_index.dart';
+import 'package:flutter_kpi/common/component_index.dart';
 
 class MineWidget extends StatefulWidget {
   @override
@@ -8,11 +10,13 @@ class MineWidget extends StatefulWidget {
 
 class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
 
+  Map<String, Object> userInfo;
+
   @override
   void initState() {
     super.initState();
-
-    
+    userInfo = SpUtil.getObject(BaseConstant.access_Token);
+    LogFsUtil.e(userInfo.toString());
   }
 
   @override
@@ -75,4 +79,5 @@ class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
   void dispose() {
     super.dispose();
   }
+
 }

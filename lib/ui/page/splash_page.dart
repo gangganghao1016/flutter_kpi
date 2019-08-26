@@ -25,8 +25,8 @@ class SplashState extends State<SplashPage> {
      _goHome();
       // _goLogin();
     } else {
-      // _goLogin();
-      _goHome();
+       _goLogin();
+//      _goHome();
     }
   }
 
@@ -68,7 +68,7 @@ class SplashState extends State<SplashPage> {
   }
 
   _goHome() {
-    NavigatorUtils.push(context, RouterUnify.tabbar, replace: true);
+    NavigatorUtils.push(context, RouterUnify.home, replace: true);
   }
 
   @override

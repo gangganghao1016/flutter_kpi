@@ -25,8 +25,8 @@ class SplashState extends State<SplashPage> {
      _goHome();
       // _goLogin();
     } else {
-       _goLogin();
-//      _goHome();
+      //  _goLogin();
+     _goHome();
     }
   }
 

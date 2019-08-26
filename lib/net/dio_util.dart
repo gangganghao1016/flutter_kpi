@@ -116,7 +116,7 @@ class DioUtil {
 
   void setCookie(String cookie) {
     Map<String, dynamic> _headers = new Map();
-    _headers["Cookie"] = cookie;
+    _headers["accessToken"] = cookie;
     _dio.options.headers.addAll(_headers);
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_kpi/blocs/login_bloc.dart';
 import 'package:flutter_kpi/res/index.dart';
+import 'package:flutter_kpi/routers/router_index.dart';
 import 'package:flutter_kpi/ui/base_widget.dart';
 import 'package:flutter_kpi/ui/widget/widgets.dart';
 import 'package:flutter_kpi/utils/toast.dart';
@@ -91,12 +92,12 @@ class _LoginPageState extends BaseState<UserLoginPage, LoginBloc> {
         Toast.show(username.isEmpty ? "请输入密码～" : "密码至少6位～");
         return;
       }
-      bloc.reqLogin(username, password);
-//      bloc.reqLogin(username, password).then((yes) {
-//        if (yes) {
+      bloc.reqLogin(username, password).then((isSuccess){
+        if (isSuccess) {
 //          NavigatorUtils.push(context, RouterUnify.home);
-//        }
-//      });
+          NavigatorUtils.push(context, RouterUnify.home, replace: true);
+        }
+      });
     }
 
     return new Scaffold(

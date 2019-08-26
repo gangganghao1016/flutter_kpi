@@ -56,11 +56,10 @@ class UserRepository {
       if ( model.accessToken.isNotEmpty) {
         SpUtil.putString(BaseConstant.access_Token, model.accessToken);
         LogFsUtil.d("存储token到sp");
-
-//        baseResp.response.headers.set("accessToken", model.accessToken);
+        DioUtil.getInstance().setCookie(model.accessToken);
       }
+        Toast.show("登录成功");
     }
-    Toast.show("登录成功");
     return model;
   }
 

@@ -19,11 +19,12 @@ class LoginBloc extends BaseBloc {
   }
 
   UserRepository _repository=new UserRepository();
-  Future reqLogin(String username,String pwd) {
-    return _repository.login(username,pwd).then((userEntity) {
-      LogFsUtil.d("login_____27"+userEntity.toString());
+  Future<bool> reqLogin(String username,String pwd) async {
+    bool isLoginSuccess;
+     await _repository.login(username,pwd).then((userEntity) {
+      LogFsUtil.d("return...login_____"+userEntity.toString());
       if (userEntity != null) {
-
+        isLoginSuccess=true;
       }
 //      _collectListSink.add(UnmodifiableListView<ReposModel>(_collectList));
 //      _homeEventSink?.add(new StatusEvent(
@@ -31,14 +32,17 @@ class LoginBloc extends BaseBloc {
 //          ObjectUtil.isEmpty(list)
 //              ? RefreshStatus.noMore
 //              : RefreshStatus.idle));
+//     return isLoginSuccess;
     }).catchError((_) {
-      LogFsUtil.d("login_____38");
+      LogFsUtil.d("catchError");
 //      if (ObjectUtil.isEmpty(_collectList)) {
 //        _collectListBs.sink.addError("error");
 //      }
 //      _collectPage--;
 //      _homeEventSink?.add(new StatusEvent(labelId, RefreshStatus.failed));
     });
+    LogFsUtil.d("return...");
+     return isLoginSuccess;
   }
 
 //  reqlogin(String userName, String password) {

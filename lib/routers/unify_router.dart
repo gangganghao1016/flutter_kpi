@@ -5,8 +5,8 @@ import 'package:flutter_kpi/ui/page/tabBar.dart';
 import 'package:flutter_kpi/ui/page/user_login_page.dart';
 
 class RouterUnify extends IRouterProvider{
- static String home="/home";
- static String login="/login";
+ static String home= "/home";
+ static String login= "/login";
   @override
   void initRouter(Router router) {
 //   router.define(home, handler: Handler(handlerFunc: (_, params) => HomePage()));

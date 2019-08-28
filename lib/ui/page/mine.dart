@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_kpi/net/net.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MineWidget extends StatefulWidget {
   @override
@@ -18,10 +21,23 @@ class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
+    const platform = MethodChannel("fang/untils");
+
+    handleButton() async {
+      int result;
+      try {
+        result = await platform.invokeMethod("openAppMarket");
+      }catch(e) {
+        result = -1;
+      }
+      print(result);
+    }
+
     _personalDatafunc() {
       showToast("个人资料",position: ToastPosition.bottom);
+      handleButton();
     }
+
     _personalKpiDetailfunc() {
       showToast("我的绩效详情",position: ToastPosition.bottom);
     }
@@ -45,7 +61,7 @@ class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.all(20),
             color: Colors.grey,
             child: Column(
               children: <Widget>[
@@ -85,7 +101,7 @@ class _MineState extends State<MineWidget> with SingleTickerProviderStateMixin {
    Widget buildItem(BuildContext context, int index,String title,Function func) {
     //设置分割线
     //设置字体样式
-    Widget divider1=Divider(color: Colors.black);
+    // Widget divider1=Divider(color: Colors.black);
     TextStyle textStyle =  TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0);
     return GestureDetector(
       onTap: () => func(),

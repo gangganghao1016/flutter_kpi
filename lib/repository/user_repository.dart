@@ -4,6 +4,7 @@ import 'package:flutter_kpi/data/user_entity.dart';
 import 'package:flutter_kpi/net/api.dart';
 import 'package:flutter_kpi/net/net.dart';
 import 'package:flutter_kpi/utils/util_index.dart';
+
 class LoginReq {
   String username;
   String password;
@@ -50,17 +51,16 @@ class UserRepository {
       return Future.error(baseResp.msg);
     }
     UserEntity model = UserEntity.fromJson(baseResp.data);
-    if(model!=null){
+    if (model != null) {
       //      //把整个user对象放在sp文件中
-        SpUtil.putObject(BaseConstant.user_obj, model);
-      if ( model.accessToken.isNotEmpty) {
+      SpUtil.putObject(BaseConstant.user_obj, model);
+      if (model.accessToken.isNotEmpty) {
         SpUtil.putString(BaseConstant.access_Token, model.accessToken);
         LogFsUtil.d("存储token到sp");
         DioUtil.getInstance().setCookie(model.accessToken);
       }
-        Toast.show("登录成功");
+      Toast.show("登录成功");
     }
     return model;
   }
-
 }
